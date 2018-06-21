@@ -53,6 +53,18 @@ namespace TCPSocketsServer
 
             await networkStream.WriteAsync(serverResponseBytes, 0, serverResponseBytes.Length);
             Console.WriteLine("[Server] Response has been written");
+
+            switch (request)
+            {
+                case "Stop":
+                    tcpListener.Stop();
+                    break;
+                case "Disconnect":
+                    Console.WriteLine("[Server] Client has disconnected");
+                    networkStream = null;
+                    break;
+            }
+
             return request;
         }
 
